@@ -11,10 +11,10 @@ class AgePrediction:
             data = json.load(f)
         return data
 
-    def format_date(self):
+    def format_date(self, collection_name):
         data = self.load_data()
-        education = data["member_education_collection"]
-        for item in education:
+        #collection_name = data[f"member{collection_name}collection"]
+        for item in collection_name:
             date_str = item["date_from"]
             if date_str:
                 if re.match(r'\d{4}-\d{2}-\d{2}', date_str):
@@ -24,11 +24,9 @@ class AgePrediction:
                     if len(date_str_split) == 1:
                         to_be_formatted_date = datetime.strptime(date_str, "%Y")
                     else:
-                        to_be_formatted_date = datetime.strptime(date_str,"%B" "%Y")
-                        formatted_date = to_be_formatted_date.strftime('%Y-%m-%d')
-                        item["date_from"] = formatted_date
-           # else:
-            #    item["date_from"]     
+                        to_be_formatted_date = datetime.strptime(date_str,"%B %Y")
+                    formatted_date = to_be_formatted_date.strftime('%Y-%m-%d')
+                    item["date_from"] = formatted_date     
                     with open(self.file_path, 'w') as f:
                         json.dump(data, f, indent=4)              
         
@@ -36,6 +34,7 @@ class AgePrediction:
 #calculate the age of a person based on current time and their date of  birth
     def calculate_duration(self, starting_date):
         today = datetime.today()
+        starting_date = datetime.strptime(starting_date, '%Y-%m-%d')
         duration = today.year - starting_date.year - (today.month < starting_date.month)   #whether had their birthday this year
         return duration
 
@@ -48,10 +47,11 @@ class AgePrediction:
         data = self.load_data()
         education = data["member_education_collection"]
         if education:
-            self.format_date()
-            earliest_date = min(education, key = lambda x: x['date_from'])['date_from']
-            earliest_title = min(education, key = lambda x: x['date_from'])['title']
-            earliest_subtitle = min(education, key = lambda x: x['date_from'])['subtitle']
+            self.format_date(education)
+            earliest_date = min(filter(lambda x: x["date_from"] is not None, education), key=lambda x: x["date_from"])["date_from"]
+            #earliest_date = min(education, key = lambda x: x['date_from'])['date_from']
+            earliest_title = min(filter(lambda x: x["date_from"] is not None, education), key=lambda x: x["date_from"])["title"]
+            earliest_subtitle = min(filter(lambda x: x["date_from"] is not None, education), key=lambda x: x["date_from"])["subtitle"]
             #if earliest_data:
              #   edu_date = earliest_date.split()
               #  if len(edu_data) == 1:
@@ -75,9 +75,9 @@ class AgePrediction:
     def get_experience_age(self):
         data = self.load_data()
         experience = data.get("member_experience_collection")
-        self.format_date()
+        self.format_date(experience)
         if experience:
-            earliest_date = min(experience, key = lambda x: x['date_from'])['date_from']
+            earliest_date = min(filter(lambda x: x["date_from"] is not None, experience), key=lambda x: x["date_from"])["date_from"]
             if earliest_date:
                 duration = self.calculate_duration(earliest_date)
                 return duration+22
@@ -86,9 +86,9 @@ class AgePrediction:
     def get_certifications_age(self):
         data = self.load_data()
         certifications = data.get("member_certifications_collection")
-        self.format_date()
+        self.format_date(certifications)
         if certifications:
-            earliest_date = min(certifications, key = lambda x: x['date_from'])['date_from']
+            earliest_date = min(filter(lambda x: x["date_from"] is not None, certifications), key=lambda x: x["date_from"])["date_from"]
             if earliest_date:
                 duration = self.calculate_duration(earliest_date)
                 return duration+22
@@ -111,6 +111,6 @@ class AgePrediction:
 #Driver code
 filename = 'cs_profiles/' + input("Person name") + '.json'
 age_predictor = AgePrediction(filename)
-age_predictor.format_date()
+#age_predictor.format_date()
 predicted_age = age_predictor.predict_age()
 print("Predicted age:", predicted_age)
