@@ -1,0 +1,72 @@
+[
+    {
+        "id": 191559251,
+        "member_id": 290727318,
+        "title": "Indian Institute of Technology, Kharagpur",
+        "subtitle": "B.Tech(hons.) & MBA, Agricultural and Food Engineering",
+        "date_from": null,
+        "date_to": null,
+        "activities_and_societies": null,
+        "description": null,
+        "created": "2016-09-01 13:07:44",
+        "last_updated": "2019-07-18 08:04:40",
+        "deleted": 1,
+        "school_url": null
+    },
+    {
+        "id": 792897087,
+        "member_id": 290727318,
+        "title": "Indian Institute of Technology, Kharagpur",
+        "subtitle": "B.Tech(hons.) & MBA",
+        "date_from": "2011-01-01",
+        "date_to": null,
+        "activities_and_societies": null,
+        "description": null,
+        "created": "2019-07-18 08:04:40",
+        "last_updated": "2019-11-25 17:42:55",
+        "deleted": 1,
+        "school_url": "https://in.linkedin.com/edu/indian-institute-of-technology-kharagpur-13500"
+    },
+    {
+        "id": 951231438,
+        "member_id": 290727318,
+        "title": "Indian Institute of Technology, Kharagpur",
+        "subtitle": "B.Tech(hons.) & MBA",
+        "date_from": null,
+        "date_to": "2011",
+        "activities_and_societies": null,
+        "description": null,
+        "created": "2019-11-25 17:42:55",
+        "last_updated": "2020-07-12 03:12:52",
+        "deleted": 1,
+        "school_url": "https://www.linkedin.com/school/indian-institute-of-technology-kharagpur/"
+    },
+    {
+        "id": 1088410867,
+        "member_id": 290727318,
+        "title": "Indian Institute of Technology, Kharagpur",
+        "subtitle": "B.Tech(hons.) & MBA",
+        "date_from": null,
+        "date_to": null,
+        "activities_and_societies": null,
+        "description": null,
+        "created": "2020-07-12 03:12:52",
+        "last_updated": "2021-08-12 10:10:26",
+        "deleted": 1,
+        "school_url": "https://www.linkedin.com/school/indian-institute-of-technology-kharagpur/"
+    },
+    {
+        "id": 1232219798,
+        "member_id": 290727318,
+        "title": "Indian Institute of Technology, Kharagpur",
+        "subtitle": "B.Tech(hons.) & MBA",
+        "date_from": null,
+        "date_to": null,
+        "activities_and_societies": null,
+        "description": null,
+        "created": "2021-08-12 10:10:26",
+        "last_updated": "2021-08-12 10:10:26",
+        "deleted": 0,
+        "school_url": "https://se.linkedin.com/school/indian-institute-of-technology-kharagpur/"
+    }
+]
