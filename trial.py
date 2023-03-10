@@ -1,11 +1,8 @@
 import json
 from datetime import datetime
+import re
 
 class AgePrediction:
-    high_school_terms = ['high school', '12', 'XII', 'secondary school']
-    bachelors_terms = ['bachelor', 'bachelors', 'btech', 'b.tech', 'bcom', 'b.com']
-    masters_terms = ['master', 'masters', 'mtech', 'mba', 'm.b.a']
-    
     def __init__(self, file_path):
         self.file_path = file_path
 
@@ -20,16 +17,20 @@ class AgePrediction:
         for item in education:
             date_str = item["date_from"]
             if date_str:
-                date_str_split = str(item["date_from"]).split()
-                if len(date_str_split) == 1:
-                    to_be_formatted_date = datetime.strptime(date_str, "%Y")
+                if re.match(r'\d{4}-\d{2}-\d{2}', date_str):
+                    return
                 else:
-                    to_be_formatted_date = datetime.strptime(date_str, "%B" "%Y")
-                formatted_date = to_be_formatted_date.strftime('%Y-%m-%d')
-                item["date_from"] = formatted_date
-                
-                with open(self.file_path, 'w') as f:
-                    json.dump(education, f, indent=4)              
+                    date_str_split = str(item["date_from"]).split()
+                    if len(date_str_split) == 1:
+                        to_be_formatted_date = datetime.strptime(date_str, "%Y")
+                    else:
+                        to_be_formatted_date = datetime.strptime(date_str,"%B" "%Y")
+                        formatted_date = to_be_formatted_date.strftime('%Y-%m-%d')
+                        item["date_from"] = formatted_date
+           # else:
+            #    item["date_from"]     
+                    with open(self.file_path, 'w') as f:
+                        json.dump(data, f, indent=4)              
         
 
 #calculate the age of a person based on current time and their date of  birth
@@ -39,6 +40,11 @@ class AgePrediction:
         return duration
 
     def get_education_age(self):
+
+        high_school_terms = ['high school', '12', 'XII', 'secondary school']
+        bachelors_terms = ['bachelor', 'bachelors', 'btech', 'b.tech', 'bcom', 'b.com']
+        masters_terms = ['master', 'masters', 'mtech', 'mba', 'm.b.a']
+     
         data = self.load_data()
         education = data["member_education_collection"]
         if education:
@@ -69,29 +75,21 @@ class AgePrediction:
     def get_experience_age(self):
         data = self.load_data()
         experience = data.get("member_experience_collection")
+        self.format_date()
         if experience:
             earliest_date = min(experience, key = lambda x: x['date_from'])['date_from']
-            if earliest_data:
-                exp_date = earliest_date.split()
-                if len(exp_data) == 1:
-                    earliest_date = datetime.strptime(earliest_date, "%Y")
-                else:
-                    earliest_date = datetime.strptime(earliest_date, "%B" "%Y")
+            if earliest_date:
                 duration = self.calculate_duration(earliest_date)
                 return duration+22
         return None
 
-    def get_certificatios_age(self):
+    def get_certifications_age(self):
         data = self.load_data()
         certifications = data.get("member_certifications_collection")
-        if certificatios:
+        self.format_date()
+        if certifications:
             earliest_date = min(certifications, key = lambda x: x['date_from'])['date_from']
-            if earliest_data:
-                cert_date = earliest_date.split()
-                if len(cert_data) == 1:
-                    earliest_date = datetime.strptime(earliest_date, "%Y")
-                else:
-                    earliest_date = datetime.strptime(earliest_date, "%B" "%Y")
+            if earliest_date:
                 duration = self.calculate_duration(earliest_date)
                 return duration+22
         return None
@@ -105,8 +103,8 @@ class AgePrediction:
             return age_from_education
         elif age_from_experience:
             return age_from_experience
-        elif age_from_experience:
-            return age_from_experience
+        elif age_from_certifications:
+            return age_from_certifications
         else:
             return None
 
