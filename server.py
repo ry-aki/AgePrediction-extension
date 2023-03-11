@@ -1,16 +1,22 @@
 from flask import Flask, request, render_template, jsonify
+from flask_cors import CORS
 from agepredictor import AgePrediction
 
 app = Flask(__name__)
-
-@app.route('/')
+CORS(app)
+cors = CORS(app, resources={
+    r"/*": {
+        "origins": "*"
+    }
+})
+@app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('popup.html')
 
-@app.route('/predict-age')
+@app.route('/predict-age', methods=['PUT', 'GET'])
 def predict_age():
-    name = request.args.get('name')
-    filename = 'cs_profiles/' + name + '.json'
+    name = request.get_json('name')
+    filename = 'cs_profiles/' + name['name'] + '.json'
     prediction_obj = AgePrediction(filename)
     predicted_age = prediction_obj.predict_age()
     response = {
