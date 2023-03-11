@@ -13,7 +13,6 @@ class AgePrediction:
 
     def format_date(self, collection_name):
         data = self.load_data()
-        #collection_name = data[f"member{collection_name}collection"]
         for item in collection_name:
             date_str = item["date_from"]
             if date_str:
@@ -52,24 +51,19 @@ class AgePrediction:
             #earliest_date = min(education, key = lambda x: x['date_from'])['date_from']
             earliest_title = min(filter(lambda x: x["date_from"] is not None, education), key=lambda x: x["date_from"])["title"]
             earliest_subtitle = min(filter(lambda x: x["date_from"] is not None, education), key=lambda x: x["date_from"])["subtitle"]
-            #if earliest_data:
-             #   edu_date = earliest_date.split()
-              #  if len(edu_data) == 1:
-               #     earliest_date = datetime.strptime(earliest_date, "%Y")
-                #else:
-                 #   earliest_date = datetime.strptime(earliest_date, "%B" "%Y")
-                 
-            duration = self.calculate_duration(earliest_date)
-            for i in high_school_terms:
-                if i in earliest_title.lower() or i in earliest_subtitle.lower():
-                    return duration+18
-            for i in bachelors_terms:
-                if i in earliest_title.lower() or i in earliest_subtitle.lower():
-                    return duration+22
-            for i in masters_terms:
-                if i in earliest_title.lower() or i in earliest_subtitle.lower():
-                    return duration+24
-            return duration+18
+        
+            if earliest_date:     
+                duration = self.calculate_duration(earliest_date)
+                for i in high_school_terms:
+                    if i in earliest_title.lower() or (earliest_subtitle is not None and i in earliest_subtitle.lower()):
+                        return duration+18
+                for i in bachelors_terms:
+                    if i in earliest_title.lower() or (earliest_subtitle is not None and i in earliest_subtitle.lower()):
+                        return duration+22
+                for i in masters_terms:
+                    if i in earliest_title.lower() or (earliest_subtitle is not None and i in earliest_subtitle.lower()):
+                        return duration+24
+                return duration+18
         return None
 
     def get_experience_age(self):
@@ -109,8 +103,8 @@ class AgePrediction:
             return None
 
 #Driver code
-filename = 'cs_profiles/' + input("Person name") + '.json'
+
+'''filename = 'cs_profiles/' + input("Person name") + '.json'
 age_predictor = AgePrediction(filename)
-#age_predictor.format_date()
 predicted_age = age_predictor.predict_age()
-print("Predicted age:", predicted_age)
+print("Predicted age:", predicted_age)'''
