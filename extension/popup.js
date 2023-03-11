@@ -19,7 +19,7 @@ const predictAge = () => {
     if (!name) {
         alert('Please select a name.');
     }
-    const response = await axios.get(`/predict-age?name=${name}`);
+    //const response = await axios.get(`/predict-age?name=${name}`);
     
 };
 document.getElementById('predict-button').addEventListener('click', predictAge);
