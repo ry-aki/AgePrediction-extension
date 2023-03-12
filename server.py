@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, send_file
 from flask_cors import CORS
 from agepredictor import AgePrediction
 
@@ -11,7 +11,7 @@ cors = CORS(app, resources={
 })
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('popup.html')
+    return send_file('popup.html')
 
 @app.route('/predict-age', methods=['PUT', 'GET'])
 def predict_age():
@@ -23,9 +23,7 @@ def predict_age():
         'name': name,
         'predicted_age': predicted_age
     }
-    #return json.dumps(response), 200 
     return jsonify({'predicted_age': predicted_age})
-    #return f"The approximate age of {name} is {predicted_age} years old."
-
+    
 if __name__ == '__main__':
     app.run(debug=True)

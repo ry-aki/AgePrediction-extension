@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Prediction</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+<div class="popup-box">
+    <div class="select-name-header"><h1>Select a name:</h1></div>
+    <div class="select-name-dropdown">
+        <select id="name-select">
+            <option value="">--Select a name--</option>
+            <option value="arnav">Arnav</option>
+            <option value="pooja">Pooja</option>
+            <option value="david">David</option>
+            <option value="ruchira">Ruchira</option>
+            <option value="hemadri">Hemadri</option>
+            <option value="ruma">Ruma</option>
+            <option value="mayur">Mayur</option>
+            <option value="shambhunath">Shambhunath</option>
+            <option value="nikhil">Nikhil</option>
+            <option value="wylie">Wylie</option>
+        </select>   
+    </div>
+    <br><br>
+    <button id="predict-button">Predict age</button>
+    <p id="prediction-result"></p>  
+</div>   
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script src = "popup.js"></script>
+</body>
+</html>
