@@ -12,10 +12,18 @@ The extension has a dropdown menu with 10 names, clicking on which displays the 
 * Axios is used to make HTTP requests from the extension to the Flask API endpoint.
 * The extension is loaded using the manifest.json file that specifies the extension's properties.
 
+
+
+
+
+### Screenshots
+
+
+![Alt text](https://github.com/ry-aki/AgePrediction-extension/blob/main/demo.jpg?raw=true "Optional Title")
+
 ### References:
 
 Flask documentation: https://flask.palletsprojects.com/en/2.1.x/  
 Chrome extension documentation
-
 
 
